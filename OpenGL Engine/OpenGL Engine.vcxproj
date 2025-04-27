@@ -24,7 +24,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="InputMapAction.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsCircleShape.cpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="InputMapAction.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsCircleShape.h" />
     <ClInclude Include="PhysicsCollisionShape.h" />

@@ -16,7 +16,6 @@ bool PhysicsRectangleShape::CollideWithCircle(const PhysicsCircleShape& circle, 
 
 bool PhysicsRectangleShape::CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform) const
 {
-	std::cout << "rect rect";;
 	Rect2 r1 = this->GetRect().Transformed(thisTransform);
 	Rect2 r2 = rectangle.GetRect().Transformed(otherTransform);
 	return !(

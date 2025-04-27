@@ -13,6 +13,7 @@ std::shared_ptr<GameObject> Game::AddObject()
 
 void Game::Start()
 {
+	InitInput();
 	InitGame();
 	for (auto& gameObject : gameObjects)
 	{
@@ -86,4 +87,10 @@ void Game::InitGame()
 {
 	AddPlayer();
 	AddGround();
+}
+
+void Game::InitInput()
+{
+	Input::AddInputAction("move_left", -GLUT_KEY_LEFT);
+	Input::AddInputAction("move_right", -GLUT_KEY_RIGHT);
 }

@@ -18,6 +18,24 @@ float lastPhysicsDeltaTime = 0.000001f;
 
 std::unique_ptr<Game> game;
 
+
+void Keyboard(unsigned char k, int x, int y)
+{
+	Input::KeyPressed((int)k, true);
+}
+void KeyboardUp(unsigned char k, int x, int y)
+{
+	Input::KeyPressed((int)k, false);
+}
+void Special(int k, int x, int y)
+{
+	Input::KeyPressed(-k, true);
+}
+void SpecialUp(int k, int x, int y)
+{
+	Input::KeyPressed(-k, false);
+}
+
 void Idle() {
 	long long old_elapsed_ms = elapsed_ms;
 	auto elapsed = std::chrono::high_resolution_clock::now() - start_time;
@@ -73,6 +91,10 @@ int main(int argc, char** argv)
 	glutReshapeFunc(ResizeWindow);
 	glutTimerFunc(16, Physics, 0);
 	glutIdleFunc(Idle);
+	glutKeyboardFunc(Keyboard);
+	glutKeyboardUpFunc(KeyboardUp);
+	glutSpecialFunc(Special);
+	glutSpecialUpFunc(SpecialUp);
 	InitOpenGL();
 	game->Start();
 	glutMainLoop();

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "GameObject.h"
 #include "Collision.h"
+#include "Input.h"
 #include <cassert>
 
 void Player::Start()
@@ -18,8 +19,10 @@ void Player::PhysicsProcess(float deltaTime)
 {
 	if (collision != nullptr && Physics::CheckAnyCollision(collision))
 		velocity = Vector2();
-	else
+	else {
+		velocity.x = Input::GetAxis("move_left", "move_right")*50.0f;
 		velocity.y -= deltaTime * 30.0f;
+	}
 	transform->Translate(velocity * deltaTime);
 
 }

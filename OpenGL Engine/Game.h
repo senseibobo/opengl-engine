@@ -2,6 +2,7 @@
 #include <memory>
 #include "GameObject.h"
 #include "Components.h"
+#include "Input.h"
 class Game
 {
 public:
@@ -14,6 +15,7 @@ private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 
 	void InitGame();
+	void InitInput();
 	void AddPlayer();
 	void AddGround();
 

@@ -17,7 +17,6 @@ Vector2 Transform::GetScale() const
 
 void Transform::Translate(Vector2 pos)
 {
-	std::cout << "Moving " << pos.y << "\n";
 	this->position += pos;
 }
 
