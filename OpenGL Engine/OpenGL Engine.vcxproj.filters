@@ -90,6 +90,9 @@
     <ClCompile Include="PhysicsRectangleShape.cpp">
       <Filter>Source Files\Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionData.cpp">
+      <Filter>Source Files\Engine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Header Files\Engine\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionData.h">
+      <Filter>Header Files\Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

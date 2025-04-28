@@ -21,11 +21,11 @@ std::shared_ptr<PhysicsCollisionShape> Collision::GetShape() const
 	return this->shape;;
 }
 
-bool Collision::CheckCollision(std::shared_ptr<Collision> other)
+bool Collision::CheckCollision(std::shared_ptr<Collision> other, Vector2 motion)
 {
 	if (GetLayer() != other->GetLayer()) return false;
 	Transform* thisTransform = GetGameObject()->GetTransform().get();
 	Transform* otherTransform = other->GetGameObject()->GetTransform().get();
-	return shape->CollideWith(*other->GetShape(), thisTransform, otherTransform);
+	return shape->CollideWith(*other->GetShape(), thisTransform, otherTransform, motion);
 }
 

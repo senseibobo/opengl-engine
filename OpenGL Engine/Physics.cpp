@@ -8,7 +8,7 @@ bool Physics::CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 mo
 	for (auto otherCollision : collisions)
 	{
 		if (otherCollision == collision) continue;
-		if (collision->CheckCollision(otherCollision)) {
+		if (collision->CheckCollision(otherCollision, motion)) {
 			return true;
 		}
 	}
