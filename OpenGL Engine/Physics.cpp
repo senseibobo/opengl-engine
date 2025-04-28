@@ -3,16 +3,17 @@
 
 std::vector<std::shared_ptr<Collision>> Physics::collisions;
 
-bool Physics::CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion)
+CollisionData Physics::CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion)
 {
 	for (auto otherCollision : collisions)
 	{
 		if (otherCollision == collision) continue;
-		if (collision->CheckCollision(otherCollision, motion)) {
-			return true;
+		CollisionData collisionData = collision->CheckCollision(otherCollision, motion);
+		if (collisionData.IsCollision()) {
+			return collisionData;
 		}
 	}
-	return false;
+	return CollisionData();
 }
 
 void Physics::RemoveCollision(std::shared_ptr<Collision> collision)

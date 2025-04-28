@@ -52,6 +52,14 @@ public:
 			return Vector2(0, 0);
 	}
 
+	Vector2 Absolute()
+	{
+		Vector2 vec;
+		vec.x = fabsf(x);
+		vec.y = fabsf(y);
+		return vec;
+	}
+
 	float DistanceTo(const Vector2& other) const
 	{
 		return sqrt(pow(x - other.x, 2.0) + pow(y - other.y, 2.0));
@@ -157,8 +165,8 @@ public:
 	Vector2 operator-() const
 	{
 		Vector2 vec;
-		vec.x = -vec.x;
-		vec.y = -vec.y;
+		vec.x = -this->x;
+		vec.y = -this->y;
 		return vec;
 	}
 };

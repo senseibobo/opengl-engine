@@ -14,7 +14,7 @@ public:
 	std::shared_ptr<PhysicsCollisionShape> GetShape() const;
 
 	// other
-	bool CheckCollision(std::shared_ptr<Collision> other, Vector2 motion);
+	CollisionData CheckCollision(std::shared_ptr<Collision> other, Vector2 motion);
 private:
 	int layer;
 	std::shared_ptr<PhysicsCollisionShape> shape;

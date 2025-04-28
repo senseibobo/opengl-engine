@@ -17,7 +17,7 @@ private:
 	void InitGame();
 	void InitInput();
 	void AddPlayer();
-	void AddGround();
+	void AddGround(Vector2 position, Vector2 scale);
 
 };
 

@@ -9,7 +9,7 @@ class Physics
 public:
 	Physics() = delete;
 
-	static bool CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion);
+	static CollisionData CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion);
 	static void RemoveCollision(std::shared_ptr<Collision> collision);
 	static std::shared_ptr<Collision> CreateCollision();
 private:

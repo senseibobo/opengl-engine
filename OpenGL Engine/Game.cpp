@@ -65,12 +65,12 @@ void Game::AddPlayer()
 	collisionComponent->SetShape(std::static_pointer_cast<PhysicsCollisionShape>(collisionShape));
 }
 
-void Game::AddGround()
+void Game::AddGround(Vector2 position, Vector2 scale)
 {
 	std::shared_ptr<GameObject> ground = AddObject();
 	std::shared_ptr<Transform> transform = ground->GetTransform();
-	transform->SetPosition(Vector2(400, 50));
-	transform->SetScale(Vector2(1, 0.1));
+	transform->SetPosition(position);
+	transform->SetScale(scale);
 	std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
 	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
 	ground->AddComponent(collisionComponent);
@@ -86,7 +86,9 @@ void Game::AddGround()
 void Game::InitGame()
 {
 	AddPlayer();
-	AddGround();
+	AddGround(Vector2(400, 50), Vector2(1.0,0.1));
+	AddGround(Vector2(740, 300), Vector2(0.1,1.0));
+
 }
 
 void Game::InitInput()

@@ -15,5 +15,6 @@ public:
 	Vector2 GetClosestPointTo(const Vector2& point) const;
 	bool ContainsPoint(const Vector2& point) const;
 	Rect2 Transformed(const Transform* transform) const;
+	Vector2 GetCenter() const;
 };
 

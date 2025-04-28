@@ -29,16 +29,38 @@ CollisionData PhysicsRectangleShape::CollideWithCircle(const PhysicsCircleShape&
 		return CollisionData();
 }
 
-// TODO
 CollisionData PhysicsRectangleShape::CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const
 {
-	Rect2 r1 = this->GetRect().Transformed(thisTransform);
+
+	if (thisMotion.Length() == 0.0) return CollisionData();
+	Rect2 r1BeforeMotion = this->GetRect().Transformed(thisTransform);
+	Rect2 r1AfterMotion = r1BeforeMotion;
+	r1AfterMotion.position += thisMotion;
 	Rect2 r2 = rectangle.GetRect().Transformed(otherTransform);
-	return !(
-		r1.position.x + r1.size.x < r2.position.x ||
-		r1.position.y + r1.size.y < r2.position.y ||
-		r1.position.x > r2.position.x + r2.size.x ||
-		r1.position.y > r2.position.y + r2.size.y);
+	bool collidedXLeft = r1AfterMotion.position.x + r1AfterMotion.size.x < r2.position.x;
+	bool collidedXRight = r1AfterMotion.position.x > r2.position.x + r2.size.x;
+	bool collidedYUp = r1AfterMotion.position.y + r1AfterMotion.size.y < r2.position.y;
+	bool collidedYDown = r1AfterMotion.position.y > r2.position.y + r2.size.y;
+
+	Vector2 diff = (r1AfterMotion.GetCenter() - r2.GetCenter());
+	Vector2 diffAbsolute = diff.Absolute();
+	Vector2 sizes = (r2.size + r1AfterMotion.size) / 2.0;
+	Vector2 collisionDistance = diffAbsolute - sizes;
+	
+	Vector2 normal;
+	Vector2 motionLeft = -(sizes-diff);
+
+	if (collisionDistance.x < 0.0 && collisionDistance.y < 0.0)
+	{
+		if (collisionDistance.x > collisionDistance.y)
+			normal = Vector2(-thisMotion.x, 0.0).Normalized();
+		else
+			normal = Vector2(0.0, -thisMotion.y).Normalized();
+		return CollisionData(normal, motionLeft);
+	}
+
+	else
+		return CollisionData();
 }
 
 Rect2 PhysicsRectangleShape::GetRect() const

@@ -36,3 +36,8 @@ Rect2 Rect2::Transformed(const Transform* transform) const
 {
 	return Rect2(position + transform->GetPosition(), size * transform->GetScale());
 }
+
+Vector2 Rect2::GetCenter() const
+{
+	return position + size/2.0;
+}
