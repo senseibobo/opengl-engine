@@ -12,16 +12,16 @@ void Player::Start()
 
 void Player::Process(float deltaTime)
 {
-	GetGameObject()->GetTransform()->Rotate(deltaTime);
+	//GetGameObject()->GetTransform()->Rotate(deltaTime);
 }
 
 void Player::PhysicsProcess(float deltaTime)
 {
 	if (collision != nullptr && Physics::CheckAnyCollision(collision))
-		velocity = Vector2();
+		velocity = Vector2(velocity.x, -velocity.y*0.9);
 	else {
 		velocity.x = Input::GetAxis("move_left", "move_right")*50.0f;
-		velocity.y -= deltaTime * 30.0f;
+		velocity.y -= deltaTime * 120.0f;
 	}
 	transform->Translate(velocity * deltaTime);
 

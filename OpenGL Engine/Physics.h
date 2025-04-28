@@ -13,7 +13,6 @@ public:
 	static void RemoveCollision(std::shared_ptr<Collision> collision);
 	static std::shared_ptr<Collision> CreateCollision();
 private:
-	static void AddCollision(std::shared_ptr<Collision> collision);
 	static std::vector<std::shared_ptr<Collision>> collisions;
 };
 

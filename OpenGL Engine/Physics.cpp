@@ -3,7 +3,7 @@
 
 std::vector<std::shared_ptr<Collision>> Physics::collisions;
 
-bool Physics::CheckAnyCollision(std::shared_ptr<Collision> collision)
+bool Physics::CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion)
 {
 	for (auto otherCollision : collisions)
 	{

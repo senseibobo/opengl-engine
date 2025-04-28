@@ -28,13 +28,28 @@ public:
 		return sqrt(x*x + y*y);
 	}
 
-	void Normalize() 
+	void SetLength(float l)
+	{
+		Normalize();
+		*this *= l;
+	}
+
+	void Normalize()
 	{
 		float l = Length();
 		if (l != 0) {
 			x /= l;
 			y /= l;
 		}
+	}
+
+	Vector2 Normalized()
+	{
+		float l = Length();
+		if (l != 0)
+			return Vector2(x / l, y / l);
+		else
+			return Vector2(0, 0);
 	}
 
 	float DistanceTo(const Vector2& other) const
@@ -91,6 +106,13 @@ public:
 		y -= rp.y;
 		return *this;
 	}
+
+	Vector2& operator*= (const float b)
+	{
+		x *= b;
+		y *= b;
+		return *this;
+	}
 	
 	Vector2 operator+(const Vector2& b) const
 	{
@@ -129,6 +151,14 @@ public:
 		Vector2 vec;
 		vec.x = this->x * b.x;
 		vec.y = this->y * b.y;
+		return vec;
+	}
+
+	Vector2 operator-() const
+	{
+		Vector2 vec;
+		vec.x = -vec.x;
+		vec.y = -vec.y;
 		return vec;
 	}
 };

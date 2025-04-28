@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Rect2.h"
 #include "Transform.h"
+#include "CollisionData.h"
 
 class PhysicsCircleShape;
 class PhysicsRectangleShape;
@@ -9,10 +10,10 @@ class PhysicsRectangleShape;
 class PhysicsCollisionShape
 {
 public:
-	virtual bool CollideWith(const PhysicsCollisionShape& shape, Transform* thisTransform, Transform* otherTransform) const = 0;
+	virtual CollisionData CollideWith(const PhysicsCollisionShape& shape, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const = 0;
 
-	virtual bool CollideWithCircle(const PhysicsCircleShape& circle, Transform* thisTransform, Transform* otherTransform) const = 0;
-	virtual bool CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform) const = 0;
+	virtual CollisionData CollideWithCircle(const PhysicsCircleShape& circle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const = 0;
+	virtual CollisionData CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const = 0;
 
 	void SetPosition(Vector2 newPosition);
 	void SetRotation(float newRotation);

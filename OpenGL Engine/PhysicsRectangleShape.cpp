@@ -1,20 +1,36 @@
 #include "PhysicsRectangleShape.h"
 #include "PhysicsCircleShape.h"
 
-bool PhysicsRectangleShape::CollideWith(const PhysicsCollisionShape& shape, Transform* thisTransform, Transform* otherTransform) const
+CollisionData PhysicsRectangleShape::CollideWith(const PhysicsCollisionShape& shape, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const
 {
-	return shape.CollideWithRectangle(*this, otherTransform, thisTransform);
+	return shape.CollideWithRectangle(*this, otherTransform, thisTransform, -thisMotion);
 }
 
-bool PhysicsRectangleShape::CollideWithCircle(const PhysicsCircleShape& circle, Transform* thisTransform, Transform* otherTransform) const
+CollisionData PhysicsRectangleShape::CollideWithCircle(const PhysicsCircleShape& circle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const
 {
-	const Rect2& rect = GetRect().Transformed(thisTransform);
-	Vector2 closestPoint = rect.GetClosestPointTo(circle.GetPosition());
-	if(closestPoint.DistanceTo(circle.GetPosition()) < circle.GetRadius()) 
-		return true;
+	Rect2 rectBeforeMotion = GetRect().Transformed(thisTransform);
+	Rect2 rectAfterMotion = rectBeforeMotion;
+	rectAfterMotion.position += thisMotion;
+	Vector2 closestPointBeforeMotion = rectBeforeMotion.GetClosestPointTo(circle.GetPosition());
+	Vector2 closestPointAfterMotion = rectAfterMotion.GetClosestPointTo(circle.GetPosition());
+	float collisionDistance = circle.GetRadius();
+	float distanceBeforeMotion = closestPointBeforeMotion.DistanceTo(circle.GetPosition());
+	float distanceAfterMotion = closestPointAfterMotion.DistanceTo(circle.GetPosition());
+
+	if (distanceAfterMotion < collisionDistance)
+	{
+		Vector2 normal = (closestPointAfterMotion - circle.GetPosition()).Normalized();
+		Vector2 collisionPoint = closestPointAfterMotion;
+		collisionPoint.SetLength(circle.GetRadius());
+		Vector2 motionLeft = (closestPointAfterMotion - collisionPoint);
+		return CollisionData(normal, motionLeft);
+	}
+	else
+		return CollisionData();
 }
 
-bool PhysicsRectangleShape::CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform) const
+// TODO
+CollisionData PhysicsRectangleShape::CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const
 {
 	Rect2 r1 = this->GetRect().Transformed(thisTransform);
 	Rect2 r2 = rectangle.GetRect().Transformed(otherTransform);
