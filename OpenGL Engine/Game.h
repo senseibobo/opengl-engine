@@ -12,15 +12,12 @@ public:
 	void Physics(float deltaTime);
 	void Draw();
 	void Reset();
-	void SetWindowSize(int width, int height);
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
 	void InitGame();
 	void InitInput();
 	void AddPlayer();
 	void AddGround(Vector2 position, Vector2 scale);
-	int windowWidth;
-	int windowHeight;
 
 };
 

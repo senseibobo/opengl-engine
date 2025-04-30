@@ -3,6 +3,7 @@
 #include <chrono>
 #include "glut.h"
 #include "Game.h"
+#include "View.h"
 
 
 #define PHYSICS_INTERVAL 1
@@ -16,10 +17,6 @@ long long elapsed_ms = 0;
 long long elapsed_physics_ms = 0;
 float lastDeltaTime = 0.00001f;
 float lastPhysicsDeltaTime = 0.000001f;
-
-// window
-int windowWidth;
-int windowHeight;
 
 
 std::unique_ptr<Game> game;
@@ -78,22 +75,23 @@ void RenderScene()
 
 void ResizeWindow(int width, int height)
 {
-	windowWidth = width;
-	windowHeight = height;
-	Camera* currentCamera = Camera::GetCurrentCamera();
-	if (currentCamera)
+	int viewportWidth;
+	int viewportHeight;
+	if (width > height * 4 / 3)
 	{
-		std::cout << "Batonga";
-		currentCamera->UpdateView(width, height);
+		viewportHeight = height;
+		viewportWidth = height * 4 / 3;
 	}
 	else
 	{
-		glViewport(0, 0, width, height);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluOrtho2D(0.0, width, 0, height);
-		glMatrixMode(GL_MODELVIEW);
+		viewportWidth = width;
+		viewportHeight = width * 3 / 4;
 	}
+	View::SetViewportRect(Rect2(
+			Vector2(width / 2.0 - viewportWidth / 2.0, height / 2.0 - viewportHeight / 2.0),
+			Vector2(viewportWidth, viewportHeight)
+		));
+
 }
 
 int main(int argc, char** argv)
@@ -114,7 +112,6 @@ int main(int argc, char** argv)
 	glutSpecialUpFunc(SpecialUp);
 	InitOpenGL();
 	game->Start();
-	game->SetWindowSize(windowWidth, windowHeight);
 	glutMainLoop();
 	return 0;
 }

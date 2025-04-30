@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "glut.h"
+#include "View.h"
+
 class Camera : public Component
 {
 public:
@@ -14,13 +15,9 @@ public:
 	void SetCurrent();
 	static Camera* GetCurrentCamera();
 	void Process(float deltaTime) override;
-	void UpdateView(int width, int height);
+	void UpdateView();
 private:
 	static Camera* currentCamera;
-
-
-	int windowWidth;
-	int windowHeight;
 	bool current;
 	int level;
 };

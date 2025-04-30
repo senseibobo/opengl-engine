@@ -52,12 +52,6 @@ void Game::Reset()
 	Game::InitGame();
 }
 
-void Game::SetWindowSize(int width, int height)
-{
-	windowWidth = width;
-	windowHeight = height;
-}
-
 void Game::AddPlayer()
 {
 	std::shared_ptr<GameObject> player = AddObject();
@@ -71,13 +65,13 @@ void Game::AddPlayer()
 	player->AddComponent(playerComponent);
 	player->AddComponent(cameraComponent);
 	std::shared_ptr<Transform> transform = player->GetTransform();
-	transform->SetPosition(Vector2(400, 500));
+	transform->SetPosition(Vector2(400, 1000));
 	transform->SetScale(Vector2(0.02, 0.07));
 
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
 	collisionShape->SetSize(texture->GetSize());
 	collisionComponent->SetShape(std::static_pointer_cast<PhysicsCollisionShape>(collisionShape));
-	cameraComponent->UpdateView(windowWidth, windowHeight);
+	cameraComponent->UpdateView();
 }
 
 void Game::AddGround(Vector2 position, Vector2 scale)
@@ -101,9 +95,26 @@ void Game::AddGround(Vector2 position, Vector2 scale)
 void Game::InitGame()
 {
 	AddPlayer();
-	AddGround(Vector2(400, 50), Vector2(0.3,0.1)); // floor all the way down
-	AddGround(Vector2(740, 300), Vector2(0.1,1.0)); // big wall to the right
-	AddGround(Vector2(200, 200), Vector2(0.1, 0.1)); // first platform
+	AddGround(Vector2(40.0, 1763.0), Vector2(0.04166666790843, 3.26481485366821)); // BigWallRight
+	AddGround(Vector2(760.0, 1762.0), Vector2(0.04166666790843, 3.26296305656433)); // BigWallLeft
+	AddGround(Vector2(400.0, 32.0), Vector2(0.41666665673256, 0.05925925821066)); // FloorMain
+	AddGround(Vector2(600.0, 300.0), Vector2(0.125, 0.03703703731298)); // Platform1
+	AddGround(Vector2(200.0, 500.0), Vector2(0.125, 0.03703703731298)); // Platform2
+	AddGround(Vector2(620.0, 740.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform3
+	AddGround(Vector2(620.0, 940.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform4
+	AddGround(Vector2(120.0, 1420.0), Vector2(0.04166666790843, 0.03703703731298)); // Platform5
+	AddGround(Vector2(360.0, 1660.0), Vector2(0.04166666790843, 0.03703703731298)); // Platform6
+	AddGround(Vector2(200.0, 1940.0), Vector2(0.125, 0.03703703731298)); // Platform7
+	AddGround(Vector2(620.0, 1940.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform8
+	AddGround(Vector2(620.0, 2100.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform9
+	AddGround(Vector2(100.0, 2140.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform10
+	AddGround(Vector2(340.0, 2300.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform11
+	AddGround(Vector2(580.0, 2500.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform12
+	AddGround(Vector2(360.0, 1060.0), Vector2(0.04166666790843, 0.33333334326744)); // Wall1
+	AddGround(Vector2(540.0, 1140.0), Vector2(0.02083333395422, 0.33333334326744)); // Wall2
+
+
+
 
 }
 

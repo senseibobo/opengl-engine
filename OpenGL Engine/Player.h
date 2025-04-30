@@ -17,12 +17,14 @@ public:
 	Player()
 	{
 		state = State::FALLING;
-		movementSpeed = 100.0;
-		jumpHeight = 900.0;
+		movementSpeed = 250.0;
+		jumpHeight = 500.0;
 		velocity = Vector2(100.0, 0.0);
-		gravity = 600.0;
+		gravity = 1200.0;
 		jumpChargeAmount = 0.0;
 		maxJumpChargeAmount = 1.0;
+		baseHorizontalJump = 0.7;
+		baseVerticalJump = 0.05;
 		facing = 1;
 	}
 
@@ -62,6 +64,8 @@ private:
 	float jumpChargeAmount;
 	float maxJumpChargeAmount;
 	float gravity;
+	float baseHorizontalJump;
+	float baseVerticalJump;
 	Vector2 velocity;
 	std::shared_ptr<Collision> collision;
 	std::shared_ptr<Transform> transform;

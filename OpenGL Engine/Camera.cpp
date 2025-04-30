@@ -21,17 +21,15 @@ void Camera::Process(float deltaTime)
 	level = ((int)transform->GetPosition().y) / 600;
 	if (oldLevel != level)
 	{
-		UpdateView(windowWidth, windowHeight);
+		UpdateView();
 	}
 }
 
-void Camera::UpdateView(int width, int height)
+void Camera::UpdateView()
 {
-	windowWidth = width;
-	windowHeight = height;
-	glViewport(0, 0, windowWidth, windowWidth);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0, 800, level * 600, 600 + level * 600);
-	glMatrixMode(GL_MODELVIEW);
+	Rect2 cameraRect;
+	cameraRect.position = Vector2(0, level*View::GetCameraRect().size.y);
+	cameraRect.size = Vector2(800,600);
+	std::cout << "cameraRect:" << cameraRect.position.x << ", " << cameraRect.position.y << ", " << cameraRect.size.x << ", " << cameraRect.size.y << "\n";
+	View::SetCameraRect(cameraRect);
 }

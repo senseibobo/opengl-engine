@@ -125,6 +125,7 @@ void Player::ProcessWalking(float deltaTime)
 		if (Input::GetAction("jump"))
 		{
 			velocity = Vector2();
+			jumpChargeAmount = 0.0;
 			SetState(State::CHARGING);
 		}
 	}
@@ -163,6 +164,12 @@ void Player::ProcessJumping(float deltaTime)
 	else if (collision.IsWallCollision())
 	{
 		velocity.x = -velocity.x;
+		SetState(State::FALLING);
+	}
+	else if (collision.IsCeilingCollision())
+	{
+		velocity.y = 0.0;
+		SetState(State::FALLING);
 	}
 }
 
@@ -173,7 +180,8 @@ void Player::ProcessCharging(float deltaTime)
 	if (jumpChargeAmount > maxJumpChargeAmount) jumpChargeAmount = maxJumpChargeAmount;
 	if (!Input::GetAction("jump"))
 	{
-		velocity = Vector2(facing * jumpChargeAmount * jumpHeight/3.0, jumpChargeAmount * jumpHeight);
+		velocity.x = (baseHorizontalJump) * jumpHeight * facing;
+		velocity.y = (baseVerticalJump + jumpChargeAmount) * jumpHeight * 2.0;
 		jumpChargeAmount = 0.0;
 		SetState(State::JUMPING);
 	}
