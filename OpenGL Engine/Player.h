@@ -18,7 +18,7 @@ public:
 	{
 		state = State::FALLING;
 		movementSpeed = 100.0;
-		jumpHeight = 600.0;
+		jumpHeight = 900.0;
 		velocity = Vector2(100.0, 0.0);
 		gravity = 600.0;
 		jumpChargeAmount = 0.0;

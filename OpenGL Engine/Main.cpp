@@ -5,7 +5,7 @@
 #include "Game.h"
 
 
-#define PHYSICS_INTERVAL 16
+#define PHYSICS_INTERVAL 1
 
 // game related stuff
 
@@ -16,6 +16,10 @@ long long elapsed_ms = 0;
 long long elapsed_physics_ms = 0;
 float lastDeltaTime = 0.00001f;
 float lastPhysicsDeltaTime = 0.000001f;
+
+// window
+int windowWidth;
+int windowHeight;
 
 
 std::unique_ptr<Game> game;
@@ -74,11 +78,22 @@ void RenderScene()
 
 void ResizeWindow(int width, int height)
 {
-	glViewport(0, 0, width, height);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0.0, width, 0, height);
-	glMatrixMode(GL_MODELVIEW);
+	windowWidth = width;
+	windowHeight = height;
+	Camera* currentCamera = Camera::GetCurrentCamera();
+	if (currentCamera)
+	{
+		std::cout << "Batonga";
+		currentCamera->UpdateView(width, height);
+	}
+	else
+	{
+		glViewport(0, 0, width, height);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluOrtho2D(0.0, width, 0, height);
+		glMatrixMode(GL_MODELVIEW);
+	}
 }
 
 int main(int argc, char** argv)
@@ -99,6 +114,7 @@ int main(int argc, char** argv)
 	glutSpecialUpFunc(SpecialUp);
 	InitOpenGL();
 	game->Start();
+	game->SetWindowSize(windowWidth, windowHeight);
 	glutMainLoop();
 	return 0;
 }

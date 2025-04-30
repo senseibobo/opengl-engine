@@ -93,6 +93,9 @@
     <ClCompile Include="CollisionData.cpp">
       <Filter>Source Files\Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="CollisionData.h">
       <Filter>Header Files\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

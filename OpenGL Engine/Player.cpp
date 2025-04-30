@@ -95,7 +95,6 @@ CollisionData Player::MoveAndCollide(const Vector2& moveVector)
 	if (collisionData.IsCollision())
 	{
 		Vector2 motionLeft = collisionData.GetMotionLeft() + collisionData.GetNormal()*0.05;
-		std::cout << motionLeft.x << ", " << motionLeft.y << "\n";
 		transform->Translate(motionLeft);
 	}
 	else 
@@ -174,7 +173,7 @@ void Player::ProcessCharging(float deltaTime)
 	if (jumpChargeAmount > maxJumpChargeAmount) jumpChargeAmount = maxJumpChargeAmount;
 	if (!Input::GetAction("jump"))
 	{
-		velocity = Vector2(facing * jumpChargeAmount * jumpHeight/2.0, jumpChargeAmount * jumpHeight);
+		velocity = Vector2(facing * jumpChargeAmount * jumpHeight/3.0, jumpChargeAmount * jumpHeight);
 		jumpChargeAmount = 0.0;
 		SetState(State::JUMPING);
 	}

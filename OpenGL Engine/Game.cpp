@@ -52,16 +52,24 @@ void Game::Reset()
 	Game::InitGame();
 }
 
+void Game::SetWindowSize(int width, int height)
+{
+	windowWidth = width;
+	windowHeight = height;
+}
+
 void Game::AddPlayer()
 {
 	std::shared_ptr<GameObject> player = AddObject();
 	std::shared_ptr<Player> playerComponent = std::make_shared<Player>();
 	std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
 	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
+	std::shared_ptr<Camera> cameraComponent = std::make_shared<Camera>();
 	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/2025-04-22_20.56.57.png");
 	player->AddComponent(spriteComponent);
 	player->AddComponent(collisionComponent);
 	player->AddComponent(playerComponent);
+	player->AddComponent(cameraComponent);
 	std::shared_ptr<Transform> transform = player->GetTransform();
 	transform->SetPosition(Vector2(400, 500));
 	transform->SetScale(Vector2(0.02, 0.07));
@@ -69,6 +77,7 @@ void Game::AddPlayer()
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
 	collisionShape->SetSize(texture->GetSize());
 	collisionComponent->SetShape(std::static_pointer_cast<PhysicsCollisionShape>(collisionShape));
+	cameraComponent->UpdateView(windowWidth, windowHeight);
 }
 
 void Game::AddGround(Vector2 position, Vector2 scale)
@@ -94,6 +103,7 @@ void Game::InitGame()
 	AddPlayer();
 	AddGround(Vector2(400, 50), Vector2(0.3,0.1)); // floor all the way down
 	AddGround(Vector2(740, 300), Vector2(0.1,1.0)); // big wall to the right
+	AddGround(Vector2(200, 200), Vector2(0.1, 0.1)); // first platform
 
 }
 
