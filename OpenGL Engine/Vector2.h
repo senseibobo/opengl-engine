@@ -60,6 +60,11 @@ public:
 		return vec;
 	}
 
+	float Dot(const Vector2& other) const
+	{
+		return this->x * other.y + this->y * other.x;
+	}
+
 	float DistanceTo(const Vector2& other) const
 	{
 		return sqrt(pow(x - other.x, 2.0) + pow(y - other.y, 2.0));
@@ -105,6 +110,13 @@ public:
 	{
 		x += rp.x;
 		y += rp.y;
+		return *this;
+	}
+
+	Vector2& operator*= (const Vector2& rp)
+	{
+		x *= rp.x;
+		y *= rp.y;
 		return *this;
 	}
 

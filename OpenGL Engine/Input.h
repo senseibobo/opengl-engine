@@ -2,6 +2,9 @@
 #include <unordered_map>
 #include <iostream>
 #include "glut.h"
+
+class Game;
+
 class Input
 {
 public:

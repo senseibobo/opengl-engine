@@ -46,6 +46,12 @@ void Game::Draw()
 	}
 }
 
+void Game::Reset()
+{
+	gameObjects.clear();
+	Game::InitGame();
+}
+
 void Game::AddPlayer()
 {
 	std::shared_ptr<GameObject> player = AddObject();
@@ -58,7 +64,7 @@ void Game::AddPlayer()
 	player->AddComponent(playerComponent);
 	std::shared_ptr<Transform> transform = player->GetTransform();
 	transform->SetPosition(Vector2(400, 500));
-	transform->SetScale(Vector2(0.1, 0.1));
+	transform->SetScale(Vector2(0.02, 0.07));
 
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
 	collisionShape->SetSize(texture->GetSize());
@@ -86,8 +92,8 @@ void Game::AddGround(Vector2 position, Vector2 scale)
 void Game::InitGame()
 {
 	AddPlayer();
-	AddGround(Vector2(400, 50), Vector2(1.0,0.1));
-	AddGround(Vector2(740, 300), Vector2(0.1,1.0));
+	AddGround(Vector2(400, 50), Vector2(0.3,0.1)); // floor all the way down
+	AddGround(Vector2(740, 300), Vector2(0.1,1.0)); // big wall to the right
 
 }
 
@@ -95,4 +101,6 @@ void Game::InitInput()
 {
 	Input::AddInputAction("move_left", -GLUT_KEY_LEFT);
 	Input::AddInputAction("move_right", -GLUT_KEY_RIGHT);
+	Input::AddInputAction("jump", ' ');
+	Input::AddInputAction("reset", 'r');
 }

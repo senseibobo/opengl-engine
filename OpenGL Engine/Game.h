@@ -11,9 +11,9 @@ public:
 	void Idle(float deltaTime);
 	void Physics(float deltaTime);
 	void Draw();
+	void Reset();
 private:
 	std::vector<std::shared_ptr<GameObject>> gameObjects;
-
 	void InitGame();
 	void InitInput();
 	void AddPlayer();

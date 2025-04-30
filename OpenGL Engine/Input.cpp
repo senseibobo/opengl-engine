@@ -1,4 +1,5 @@
 #include "Input.h"
+#include "Game.h"
 
 std::unordered_map<const char*, std::vector<int>> Input::inputMap;
 std::unordered_map<int, bool> Input::keys;

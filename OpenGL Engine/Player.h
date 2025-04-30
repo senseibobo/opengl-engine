@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
 #include "Physics.h"
+class Sprite;
+
 class Player : public Component
 {
 public:
@@ -8,16 +10,20 @@ public:
 	enum State {
 		JUMPING,
 		WALKING,
-		FALLING
+		FALLING,
+		CHARGING
 	};
 
 	Player()
 	{
 		state = State::FALLING;
 		movementSpeed = 100.0;
-		jumpHeight = 100.0;
+		jumpHeight = 600.0;
 		velocity = Vector2(100.0, 0.0);
-		gravity = 100.0;
+		gravity = 600.0;
+		jumpChargeAmount = 0.0;
+		maxJumpChargeAmount = 1.0;
+		facing = 1;
 	}
 
 
@@ -46,14 +52,19 @@ public:
 	void ProcessWalking(float deltaTime);
 	void ProcessFalling(float deltaTime);
 	void ProcessJumping(float deltaTime);
+	void ProcessCharging(float deltaTime);
 
 private:
 	State state;
+	int facing;
 	float movementSpeed;
 	float jumpHeight;
+	float jumpChargeAmount;
+	float maxJumpChargeAmount;
 	float gravity;
 	Vector2 velocity;
 	std::shared_ptr<Collision> collision;
 	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Sprite> sprite;
 };
 

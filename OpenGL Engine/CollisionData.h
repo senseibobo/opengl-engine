@@ -18,6 +18,11 @@ public:
 	bool IsCollision();
 	Vector2 GetNormal();
 	Vector2 GetMotionLeft();
+	bool IsWallCollision();
+	bool IsCeilingCollision();
+	bool IsFloorCollision();
+	bool IsDownwardSlopeCollision();
+	bool IsUpwardSlopeCollision();
 private:
 	bool collided;
 	Vector2 normal;

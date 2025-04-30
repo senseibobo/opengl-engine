@@ -13,6 +13,7 @@ public:
 	CollisionData CollideWithRectangle(const PhysicsRectangleShape& rectangle, Transform* thisTransform, Transform* otherTransform, Vector2 thisMotion) const override;
 
 	Rect2 GetRect() const;
+	Rect2 GetCenteredRect() const;
 
 	void SetPosition(Vector2 newPosition);
 	void SetSize(Vector2 newSize);

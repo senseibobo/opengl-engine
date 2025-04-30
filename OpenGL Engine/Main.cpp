@@ -5,6 +5,8 @@
 #include "Game.h"
 
 
+#define PHYSICS_INTERVAL 16
+
 // game related stuff
 
 
@@ -52,7 +54,7 @@ void Physics(int n) {
 	float deltaTime = (elapsed_physics_ms - old_elapsed_ms) / 1000.0;
 	lastPhysicsDeltaTime = deltaTime;
 	game->Physics(deltaTime);
-	glutTimerFunc(16, Physics, 0);
+	glutTimerFunc(PHYSICS_INTERVAL, Physics, 0);
 }
 
 void InitOpenGL()
@@ -89,7 +91,7 @@ int main(int argc, char** argv)
 	glutCreateWindow("Unity clone");
 	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ResizeWindow);
-	glutTimerFunc(16, Physics, 0);
+	glutTimerFunc(PHYSICS_INTERVAL, Physics, 0);
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(Keyboard);
 	glutKeyboardUpFunc(KeyboardUp);
