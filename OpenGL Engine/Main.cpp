@@ -17,6 +17,8 @@ long long elapsed_ms = 0;
 long long elapsed_physics_ms = 0;
 float lastDeltaTime = 0.00001f;
 float lastPhysicsDeltaTime = 0.000001f;
+bool firstPhysicsFrame = true;
+bool firstProcessFrame = true;
 
 
 std::unique_ptr<Game> game;
@@ -44,8 +46,11 @@ void Idle() {
 	auto elapsed = std::chrono::high_resolution_clock::now() - start_time;
 	elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
 	float deltaTime = (elapsed_ms - old_elapsed_ms) / 1000.0;
+	if (firstProcessFrame) deltaTime = 0.000001f;
 	lastDeltaTime = deltaTime;
 	game->Idle(deltaTime);
+	Audio::Update();
+	firstProcessFrame = false;
 }
 
 void Physics(int n) {
@@ -53,9 +58,11 @@ void Physics(int n) {
 	auto elapsed = std::chrono::high_resolution_clock::now() - start_time;
 	elapsed_physics_ms = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
 	float deltaTime = (elapsed_physics_ms - old_elapsed_ms) / 1000.0;
+	if (firstPhysicsFrame) deltaTime = 0.000001f;
 	lastPhysicsDeltaTime = deltaTime;
 	game->Physics(deltaTime);
 	glutTimerFunc(PHYSICS_INTERVAL, Physics, 0);
+	firstPhysicsFrame = false;
 }
 
 void InitOpenGL()
@@ -111,7 +118,9 @@ int main(int argc, char** argv)
 	glutSpecialFunc(Special);
 	glutSpecialUpFunc(SpecialUp);
 	InitOpenGL();
+	Audio::Initialize();
 	game->Start();
 	glutMainLoop();
+	Audio::Clear();
 	return 0;
 }

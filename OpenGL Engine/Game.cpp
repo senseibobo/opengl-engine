@@ -15,6 +15,9 @@ void Game::Start()
 {
 	InitInput();
 	InitGame();
+	FMOD::Sound* sound;
+	std::shared_ptr<Sound> sound1 = Sound::CreateSound("audio/second_region.wav", true, 2.0);
+	sound1->PlaySound();
 	for (auto& gameObject : gameObjects)
 	{
 		gameObject->Start();
@@ -65,7 +68,7 @@ void Game::AddPlayer()
 	player->AddComponent(playerComponent);
 	player->AddComponent(cameraComponent);
 	std::shared_ptr<Transform> transform = player->GetTransform();
-	transform->SetPosition(Vector2(400, 1000));
+	transform->SetPosition(Vector2(400, 600));
 	transform->SetScale(Vector2(0.02, 0.07));
 
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
@@ -101,7 +104,7 @@ void Game::InitGame()
 	AddGround(Vector2(600.0, 300.0), Vector2(0.125, 0.03703703731298)); // Platform1
 	AddGround(Vector2(200.0, 500.0), Vector2(0.125, 0.03703703731298)); // Platform2
 	AddGround(Vector2(620.0, 740.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform3
-	AddGround(Vector2(620.0, 940.0), Vector2(0.10416666418314, 0.03703703731298)); // Platform4
+	AddGround(Vector2(640.0, 940.0), Vector2(0.08333333581686, 0.03703703731298)); // Platform4
 	AddGround(Vector2(120.0, 1420.0), Vector2(0.04166666790843, 0.03703703731298)); // Platform5
 	AddGround(Vector2(360.0, 1660.0), Vector2(0.04166666790843, 0.03703703731298)); // Platform6
 	AddGround(Vector2(200.0, 1940.0), Vector2(0.125, 0.03703703731298)); // Platform7
@@ -110,12 +113,8 @@ void Game::InitGame()
 	AddGround(Vector2(100.0, 2140.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform10
 	AddGround(Vector2(340.0, 2300.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform11
 	AddGround(Vector2(580.0, 2500.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform12
-	AddGround(Vector2(360.0, 1060.0), Vector2(0.04166666790843, 0.33333334326744)); // Wall1
-	AddGround(Vector2(540.0, 1140.0), Vector2(0.02083333395422, 0.33333334326744)); // Wall2
-
-
-
-
+	AddGround(Vector2(360.0, 980.0), Vector2(0.04166666790843, 0.25925925374031)); // Wall1
+	AddGround(Vector2(580.0, 1100.0), Vector2(0.02083333395422, 0.25925925374031)); // Wall2
 }
 
 void Game::InitInput()

@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Physics.h"
+#include "Audio.h"
 class Sprite;
 
 class Player : public Component
