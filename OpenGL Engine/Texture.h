@@ -18,6 +18,9 @@ public:
 	Vector2 GetSize() const;
 	float GetWidth() const;
 	float GetHeight() const;
+	void Draw(const Vector2& position, const Vector2& size, const Vector2& scale, float rotation,
+		bool tiled, const Vector2& tileSize) const;
+	void Draw(const Vector2& position, const Vector2& size, const Vector2& scale, float rotation) const;
 private:
 	static std::unordered_map<const char*, std::shared_ptr<Texture>> loadedTextures;
 	GLuint textureID;

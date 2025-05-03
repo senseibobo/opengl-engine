@@ -1,11 +1,13 @@
 #pragma once
 #include <math.h>
+#include <string>
 
 class Vector2 
 {
 public:
 	float x;
 	float y;
+
 
 	Vector2() 
 	{
@@ -158,6 +160,14 @@ public:
 		return vec;
 	}
 
+	Vector2 operator/(const Vector2& b) const
+	{
+		Vector2 vec;
+		vec.x = this->x / b.x;
+		vec.y = this->y / b.y;
+		return vec;
+	}
+
 	Vector2 operator*(const float b) const
 	{
 		Vector2 vec;
@@ -180,5 +190,10 @@ public:
 		vec.x = -this->x;
 		vec.y = -this->y;
 		return vec;
+	}
+
+	std::string ToString() const
+	{
+		return std::string("Vector2(") + std::to_string(x) + "," + std::to_string(y) + ")";
 	}
 };

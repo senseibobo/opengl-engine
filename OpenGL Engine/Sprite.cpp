@@ -26,14 +26,39 @@ void Sprite::SetOffset(Vector2 newOffset)
 	this->offset = newOffset;
 }
 
+void Sprite::SetTiled(bool newTiled)
+{
+	this->tiled = newTiled;
+}
+
+void Sprite::SetTileSize(Vector2 newTileSize)
+{
+	this->tileSize = newTileSize;
+}
+
+void Sprite::SetTileOffset(Vector2 newTileOffset)
+{
+	this->tileOffset = newTileOffset;
+}
+
 std::shared_ptr<Texture> Sprite::GetTexture() const
 {
 	return this->texture;
 }
 
-Vector2 Sprite::GetScale()
+Vector2 Sprite::GetScale() const
 {
 	return this->scale;
+}
+
+Rect2 Sprite::GetRect() const
+{
+	std::shared_ptr<Transform> transform = GetGameObject()->GetTransform();
+	Rect2 rect;
+	rect.size = texture->GetSize() * scale * transform->GetScale();
+	rect.position = transform->GetPosition() + offset;
+	rect.position -= rect.size / 2.0;
+	return rect;
 }
 
 bool Sprite::GetFlipHorizontal() const
@@ -49,6 +74,21 @@ bool Sprite::GetFlipVertical() const
 Vector2 Sprite::GetOffset() const
 {
 	return this->offset;
+}
+
+bool Sprite::GetTiled() const
+{
+	return this->tiled;
+}
+
+Vector2 Sprite::GetTileSize() const
+{
+	return this->tileSize;
+}
+
+Vector2 Sprite::GetTileOffset() const
+{
+	return this->tileOffset;
 }
 
 std::shared_ptr<Texture> Sprite::LoadAndSetTexture(const char* path)
@@ -70,21 +110,5 @@ void Sprite::Draw() const
 	int flipVScale = GetFlipVertical() ? -1 : 1;
 	scale *= Vector2(flipHScale, flipVScale);
 	position += GetOffset();
-	float left = -size.x * scale.x / 2.0;
-	float right = -left;
-	float up = -size.y * scale.y / 2.0;
-	float down = -up;
-	Vector2 top_left = Vector2(left, up).Rotated(rotation);
-	Vector2 top_right = Vector2(right, up).Rotated(rotation);
-	Vector2 bottom_left = Vector2(left, down).Rotated(rotation);
-	Vector2 bottom_right = Vector2(right, down).Rotated(rotation);
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture->GetID());
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0, 0.0); glVertex2f(position.x + bottom_left.x, position.y + bottom_left.y);
-	glTexCoord2f(1.0, 0.0); glVertex2f(position.x + bottom_right.x, position.y + bottom_right.y);
-	glTexCoord2f(1.0, 1.0); glVertex2f(position.x + top_right.x, position.y + top_right.y);
-	glTexCoord2f(0.0, 1.0); glVertex2f(position.x + top_left.x, position.y + top_left.y);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
+	texture->Draw(position, size, scale, rotation, tiled, tileSize);
 }

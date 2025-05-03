@@ -37,10 +37,6 @@ CollisionData PhysicsRectangleShape::CollideWithRectangle(const PhysicsRectangle
 	Rect2 r1AfterMotion = r1BeforeMotion;
 	r1AfterMotion.position += thisMotion;
 	Rect2 r2 = rectangle.GetCenteredRect().Transformed(otherTransform);
-	//bool collidedXLeft = r1AfterMotion.position.x + r1AfterMotion.size.x < r2.position.x;
-	//bool collidedXRight = r1AfterMotion.position.x > r2.position.x + r2.size.x;
-	//bool collidedYUp = r1AfterMotion.position.y + r1AfterMotion.size.y < r2.position.y;
-	//bool collidedYDown = r1AfterMotion.position.y > r2.position.y + r2.size.y;
 
 	Vector2 diff = (r1AfterMotion.position - r2.position);
 	Vector2 diffAbsolute = diff.Absolute();

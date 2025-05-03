@@ -41,3 +41,8 @@ Vector2 Rect2::GetCenter() const
 {
 	return position + size/2.0;
 }
+
+std::string Rect2::ToString() const
+{
+	return std::string("Rect2(")+std::to_string(position.x)+", "+std::to_string(position.y)+", "+std::to_string(size.x)+", "+std::to_string(size.x) + ")";
+}

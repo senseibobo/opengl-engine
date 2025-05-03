@@ -18,6 +18,6 @@ private:
 	void InitInput();
 	void AddPlayer();
 	void AddGround(Vector2 position, Vector2 scale);
-
+	void AddButton(Vector2 position, Vector2 size, std::string text);
 };
 

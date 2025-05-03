@@ -1,6 +1,5 @@
 #include "Component.h"
 #include "GameObject.h"
-#include "Transform.h"
 
 
 void Component::Process(float deltaTime) {}

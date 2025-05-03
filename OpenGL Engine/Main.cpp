@@ -24,6 +24,14 @@ bool firstProcessFrame = true;
 std::unique_ptr<Game> game;
 
 
+void Mouse(int button, int state, int x, int y)
+{
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		UIManager::CheckClick(x-64, 600-y-64);
+	}
+}
+
 void Keyboard(unsigned char k, int x, int y)
 {
 	Input::KeyPressed((int)k, true);
@@ -115,6 +123,7 @@ int main(int argc, char** argv)
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(Keyboard);
 	glutKeyboardUpFunc(KeyboardUp);
+	glutMouseFunc(Mouse);
 	glutSpecialFunc(Special);
 	glutSpecialUpFunc(SpecialUp);
 	InitOpenGL();

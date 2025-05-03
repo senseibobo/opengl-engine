@@ -79,20 +79,33 @@ void Game::AddPlayer()
 
 void Game::AddGround(Vector2 position, Vector2 scale)
 {
+	scale *= (Vector2(1920, 1080) / Vector2(40, 40));
 	std::shared_ptr<GameObject> ground = AddObject();
 	std::shared_ptr<Transform> transform = ground->GetTransform();
 	transform->SetPosition(position);
 	transform->SetScale(scale);
 	std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
 	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
+	spriteComponent->SetTiled(true);
+	spriteComponent->SetTileSize(Vector2(40, 40));
 	ground->AddComponent(collisionComponent);
 	ground->AddComponent(spriteComponent);
 
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
 	collisionComponent->SetShape(std::static_pointer_cast<PhysicsCollisionShape>(collisionShape));
 	
-	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/2025-04-22_20.56.57.png");
+	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/brickTile.png");
 	collisionShape->SetSize(texture->GetSize());
+}
+
+void Game::AddButton(Vector2 position, Vector2 size, std::string text)
+{
+	std::shared_ptr<GameObject> button = AddObject();
+	std::shared_ptr<Button> buttonComponent = std::make_shared<Button>();
+	button->AddComponent(buttonComponent);
+	buttonComponent->LoadAndSetTexture("textures/2025-04-22_20.56.57.png");
+	buttonComponent->SetAnchors(0.5, 0.5, 0.5, 0.5);
+	buttonComponent->SetOffsets(-100, 100, 40, -40);
 }
 
 void Game::InitGame()
@@ -115,6 +128,7 @@ void Game::InitGame()
 	AddGround(Vector2(580.0, 2500.0), Vector2(0.02083333395422, 0.03703703731298)); // Platform12
 	AddGround(Vector2(360.0, 980.0), Vector2(0.04166666790843, 0.25925925374031)); // Wall1
 	AddGround(Vector2(580.0, 1100.0), Vector2(0.02083333395422, 0.25925925374031)); // Wall2
+	AddButton(Vector2(300, 300), Vector2(100,30), "Play");
 }
 
 void Game::InitInput()

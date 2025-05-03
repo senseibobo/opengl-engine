@@ -4,6 +4,7 @@
 #include <memory>
 
 class GameObject;
+class Transform;
 
 class Component
 {

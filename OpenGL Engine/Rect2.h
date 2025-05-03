@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include <math.h>
+#include <string>
 
 class Transform;
 
@@ -16,5 +17,6 @@ public:
 	bool ContainsPoint(const Vector2& point) const;
 	Rect2 Transformed(const Transform* transform) const;
 	Vector2 GetCenter() const;
+	std::string ToString() const;
 };
 
