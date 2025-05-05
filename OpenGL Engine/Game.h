@@ -1,23 +1,22 @@
 #pragma once
 #include <memory>
-#include "GameObject.h"
-#include "Components.h"
 #include "Input.h"
+#include "Scene.h"
+
 class Game
 {
 public:
-	std::shared_ptr<GameObject> AddObject();
 	void Start();
 	void Idle(float deltaTime);
 	void Physics(float deltaTime);
 	void Draw();
-	void Reset();
 private:
-	std::vector<std::shared_ptr<GameObject>> gameObjects;
+	std::function<void()> pendingSceneChange;
+	std::shared_ptr<Scene> scene;
+	Scene* NewScene();
 	void InitGame();
 	void InitInput();
-	void AddPlayer();
-	void AddGround(Vector2 position, Vector2 scale);
-	void AddButton(Vector2 position, Vector2 size, std::string text);
+	void SetMainMenuScene();
+	void SetGameScene();
 };
 

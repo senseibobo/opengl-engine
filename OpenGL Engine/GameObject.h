@@ -7,6 +7,8 @@
 #include <iostream>
 #include <memory>
 
+class Scene;
+
 class GameObject
 {
 public:
@@ -34,6 +36,7 @@ public:
 	void Draw() const;
 	void AddComponent(std::shared_ptr<Component> component);
 	void RemoveComponent(std::shared_ptr<Component> component);
+	void Destroy();
 
 	template<typename T>
 	std::shared_ptr<T> GetComponent()

@@ -21,14 +21,14 @@ bool firstPhysicsFrame = true;
 bool firstProcessFrame = true;
 
 
-std::unique_ptr<Game> game;
+Game* game;
 
 
 void Mouse(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		UIManager::CheckClick(x-64, 600-y-64);
+		UIManager::CheckClick(x, 600-y);
 	}
 }
 
@@ -111,7 +111,7 @@ void ResizeWindow(int width, int height)
 
 int main(int argc, char** argv)
 {
-	game = std::make_unique<Game>();
+	game = new Game();
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);

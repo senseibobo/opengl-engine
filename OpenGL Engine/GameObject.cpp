@@ -1,11 +1,13 @@
 #include "GameObject.h"
 #include "Transform.h"
+#include "Scene.h"
 
 
 void GameObject::Start()
 {
 	for (auto component : components)
 	{
+		std::cout << "INITIATED" << std::dynamic_pointer_cast<Player>(component) << std::endl;
 		component->Start();
 	}
 }
@@ -49,6 +51,11 @@ void GameObject::RemoveComponent(std::shared_ptr<Component> component)
 	auto end = components.end();
 	auto iter = std::find(begin, end, component);
 	components.erase(iter);
+}
+
+void GameObject::Destroy()
+{
+	Scene::GetCurrent()->DestroyObject(this);
 }
 
 std::shared_ptr<Transform> GameObject::GetTransform()

@@ -26,6 +26,7 @@
     <ClCompile Include="CollisionData.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="PhysicsRectangleShape.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect2.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -52,6 +54,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="Input.h" />
@@ -61,6 +64,7 @@
     <ClInclude Include="PhysicsRectangleShape.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect2.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stb_image.h" />

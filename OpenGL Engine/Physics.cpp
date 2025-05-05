@@ -5,6 +5,7 @@ std::vector<std::shared_ptr<Collision>> Physics::collisions;
 
 CollisionData Physics::CheckAnyCollision(std::shared_ptr<Collision> collision, Vector2 motion)
 {
+	if (!collision) return CollisionData();
 	for (auto otherCollision : collisions)
 	{
 		if (otherCollision == collision) continue;
