@@ -24,6 +24,7 @@ void UIManager::AddButton(Button* button)
 
 void UIManager::RemoveButton(Button* button)
 {
+	std::cout << "Removing button!!\n";
 	auto begin = buttons.begin();
 	auto end = buttons.end();
 	auto it = std::find(begin, end, button);

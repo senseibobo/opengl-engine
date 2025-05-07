@@ -8,8 +8,8 @@ std::shared_ptr<Texture> Texture::LoadFromFile(const char* path)
 	auto it = loadedTextures.find(path);
 	if (it != loadedTextures.end())
 	{
-		return loadedTextures[path];
 		std::cout << "Texture already loaded, reusing it :3\n";
+		return loadedTextures[path];
 	}
 	int width, height, nrChannels;
 	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);

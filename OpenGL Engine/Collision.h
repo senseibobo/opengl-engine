@@ -5,6 +5,10 @@
 class Collision : public Component
 {
 public:
+	Collision() : Component()
+	{
+
+	}
 	// set
 	void SetShape(std::shared_ptr<PhysicsCollisionShape> shape);
 	void SetLayer(int newLayer);

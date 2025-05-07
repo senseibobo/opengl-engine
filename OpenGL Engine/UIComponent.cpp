@@ -108,6 +108,11 @@ void UIComponent::Draw() const
 	texture->Draw(rect.position, rect.size, Vector2(1,1), 0.0);
 }
 
+void UIComponent::OnDestroyed()
+{
+	UIManager::RemoveUIComponent(this);
+}
+
 void UIComponent::SetTexture(std::shared_ptr<Texture> texture)
 {
 	this->texture = texture;

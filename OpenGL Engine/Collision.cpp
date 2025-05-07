@@ -25,7 +25,8 @@ CollisionData Collision::CheckCollision(std::shared_ptr<Collision> other, Vector
 {
 	if (GetLayer() != other->GetLayer()) return CollisionData();
 	Transform* thisTransform = GetGameObject()->GetTransform().get();
-	Transform* otherTransform = other->GetGameObject()->GetTransform().get();
+	GameObject* otherGameObject = other->GetGameObject();
+	Transform* otherTransform = otherGameObject->GetTransform().get();
 	return shape->CollideWith(*other->GetShape(), thisTransform, otherTransform, motion);
 }
 

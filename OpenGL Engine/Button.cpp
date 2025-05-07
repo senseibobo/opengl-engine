@@ -4,6 +4,7 @@
 
 void Button::Start()
 {
+	std::cout << "Component here!";
 }
 
 void Button::AddCallback(std::function<void()> callback)
@@ -18,7 +19,7 @@ void Button::RemoveCallback(std::function<void()> callback)
 
 bool Button::CheckIfClicked(int x, int y)
 {
-	std::cout << "CHECKING at " << x << " " << y << "\n";
+	std::cout << GetGameObject()->GetComponents().size();
 	Vector2 clickPoint = Vector2(x, y);
 	clickPoint -= Vector2(400, 300);
 	if(Camera::GetCurrentCamera())
@@ -28,7 +29,6 @@ bool Button::CheckIfClicked(int x, int y)
 	if (rect.ContainsPoint(clickPoint))
 	{
 		Click();
-		std::cout << "Yeah..\n";
 		return true;
 	}
 	else
@@ -46,4 +46,10 @@ void Button::Click()
 			std::cerr << "Callback isn't valid\n";
 		}
 	}
+}
+
+void Button::OnDestroyed()
+{
+	UIManager::RemoveButton(this);
+	UIComponent::OnDestroyed();
 }

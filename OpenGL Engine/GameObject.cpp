@@ -7,7 +7,6 @@ void GameObject::Start()
 {
 	for (auto component : components)
 	{
-		std::cout << "INITIATED" << std::dynamic_pointer_cast<Player>(component) << std::endl;
 		component->Start();
 	}
 }
@@ -53,6 +52,19 @@ void GameObject::RemoveComponent(std::shared_ptr<Component> component)
 	components.erase(iter);
 }
 
+void GameObject::RemoveAllComponents()
+{
+
+	for (const auto& component : components)
+	{
+		if (!component) continue;
+		std::cout << "Removing all components heree!\n";
+		component->OnRemoved();
+		component->OnDestroyed();
+	}
+	components.clear();
+}
+
 void GameObject::Destroy()
 {
 	Scene::GetCurrent()->DestroyObject(this);
@@ -61,4 +73,9 @@ void GameObject::Destroy()
 std::shared_ptr<Transform> GameObject::GetTransform()
 {
 	return transform;
+}
+
+std::vector<std::shared_ptr<Component>>& GameObject::GetComponents()
+{
+	return components;
 }

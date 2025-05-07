@@ -18,13 +18,10 @@ public:
 		offsetBottom = -40;
 		UIManager::AddUIComponent(this);
 	}
-	virtual ~UIComponent()
-	{
-		UIManager::RemoveUIComponent(this);
-	}
 
 	// override
 	void Draw() const override;
+	void OnDestroyed() override;
 
 	// set get
 	#pragma region Anchors and Offsets

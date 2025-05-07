@@ -46,7 +46,7 @@ void Scene::AddGround(Vector2 position, Vector2 scale)
 	scale *= (Vector2(1920, 1080) / Vector2(40, 40));
 	std::shared_ptr<GameObject> ground = AddObject();
 	std::shared_ptr<Transform> transform = ground->GetTransform();
-	transform->SetPosition(position);
+	transform->SetPosition(position-Vector2(0,600));
 	transform->SetScale(scale);
 	std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
 	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
@@ -77,11 +77,14 @@ std::shared_ptr<Button> Scene::AddButton(Vector2 position, Vector2 size, std::st
 
 void Scene::DestroyObject(GameObject* gameObject)
 {
+	std::cout << "Destroying object!!\n";
 	for (auto it = gameObjects.begin(); it != gameObjects.end(); it++)
 	{
+		std::cout << "Checking object\n";
 		if (it->get() == gameObject)
 		{
 			gameObjects.erase(it);
+			std::cout << "Removing all components\n";
 			break;
 		}
 	}
@@ -89,10 +92,12 @@ void Scene::DestroyObject(GameObject* gameObject)
 
 void Scene::Destroy()
 {
+	std::cout << "Destroying every object in scene:\n";
 	for (const auto& obj : gameObjects) {
-		if (!obj) {
-			std::cerr << "Error: Found a null shared_ptr in gameObjects!" << std::endl;
-		}
+		if (!obj) continue;
+		std::cout << "Destroying object\n";
+		obj->RemoveAllComponents();
+		obj->Destroy();
 	}
 	gameObjects.clear();
 }

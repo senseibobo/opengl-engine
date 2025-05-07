@@ -7,6 +7,7 @@ void Component::PhysicsProcess(float deltaTime) {}
 void Component::Draw() const {}
 void Component::Start() {}
 void Component::OnRemoved() {}
+void Component::OnDestroyed() {}
 
 void Component::OnAddedd(GameObject* gameObject) 
 {

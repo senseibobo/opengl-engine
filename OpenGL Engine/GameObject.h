@@ -19,15 +19,12 @@ public:
 	{
 		transform = std::make_shared<Transform>();
 	}
-	~GameObject()
-	{
-
-	}
 
 
 	// set
 	// get
 	std::shared_ptr<Transform> GetTransform();
+	std::vector<std::shared_ptr<Component>>& GetComponents();
 
 	// other
 	void Start();
@@ -36,6 +33,7 @@ public:
 	void Draw() const;
 	void AddComponent(std::shared_ptr<Component> component);
 	void RemoveComponent(std::shared_ptr<Component> component);
+	void RemoveAllComponents();
 	void Destroy();
 
 	template<typename T>

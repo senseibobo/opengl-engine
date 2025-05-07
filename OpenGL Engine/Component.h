@@ -28,6 +28,7 @@ public:
 	virtual void Start();
 	virtual void OnAddedd(GameObject* gameObject);
 	virtual void OnRemoved();
+	virtual void OnDestroyed();
 	//std::string name;
 	GameObject* GetGameObject() const;
 

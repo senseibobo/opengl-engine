@@ -99,7 +99,6 @@ CollisionData Player::MoveAndCollide(const Vector2& moveVector)
 	}
 	else 
 	{
-		std::cout << transform<<std::endl;
 		transform->Translate(moveVector);
 	}
 	return collisionData;
