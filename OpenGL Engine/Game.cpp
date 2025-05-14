@@ -91,7 +91,14 @@ void Game::SetMainMenuScene()
             SetGameScene();
             };
         });
-
+    std::shared_ptr<Text> playTextComponent = std::make_shared<Text>();
+    playTextComponent->SetAnchors(0.5, 0.5, 0.5, 0.5);
+    playTextComponent->SetText(std::string("Play"));
+    std::shared_ptr<Text> titleComponent = std::make_shared<Text>();
+    titleComponent->SetAnchors(0.5,0.5, 0.8, 0.8);
+    titleComponent->SetText(std::string("Leaping Goat"));
+    buttonComponent->GetGameObject()->AddComponent(playTextComponent);
+    buttonComponent->GetGameObject()->AddComponent(titleComponent);
     std::shared_ptr<GameObject> camera = scene->AddObject();
     std::shared_ptr<Camera> cameraComponent = std::make_shared<Camera>();
     camera->AddComponent(cameraComponent);

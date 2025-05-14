@@ -5,3 +5,4 @@
 #include "Transform.h"
 #include "GameCamera.h"
 #include "Button.h"
+#include "Text.h"
