@@ -26,14 +26,14 @@ void Scene::AddPlayer(Vector2 position)
 	std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
 	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
 	std::shared_ptr<GameCamera> cameraComponent = std::make_shared<GameCamera>();
-	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/2025-04-22_20.56.57.png");
+	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/goat.png");
 	player->AddComponent(spriteComponent);
 	player->AddComponent(collisionComponent);
 	player->AddComponent(playerComponent);
 	player->AddComponent(cameraComponent);
 	std::shared_ptr<Transform> transform = player->GetTransform();
 	transform->SetPosition(position);
-	transform->SetScale(Vector2(0.02, 0.07));
+	transform->SetScale(Vector2(0.15, 0.15));
 
 	std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
 	collisionShape->SetSize(texture->GetSize());
@@ -68,7 +68,7 @@ std::shared_ptr<Button> Scene::AddButton(Vector2 position, Vector2 size, std::st
 	std::shared_ptr<GameObject> button = AddObject();
 	std::shared_ptr<Button> buttonComponent = std::make_shared<Button>();
 	button->AddComponent(buttonComponent);
-	buttonComponent->LoadAndSetTexture("textures/2025-04-22_20.56.57.png");
+	buttonComponent->LoadAndSetTexture("textures/brickTile.png");
 	buttonComponent->SetAnchors(0.5, 0.5, 0.5, 0.5);
 	buttonComponent->SetOffsets(-100, 100, 40, -40);
 	buttonComponent->AddCallback(callback);

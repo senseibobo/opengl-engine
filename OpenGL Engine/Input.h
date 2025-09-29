@@ -12,8 +12,13 @@ public:
 	static void KeyPressed(int key, bool down);
 	static void AddInputAction(const char* name, int key);
 	static int GetAction(const char* name);
+	static int GetActionPressed(const char* name);
+	static int GetActionReleased(const char* name);
 	static int GetAxis(const char* name1, const char* name2);
+	static void ResetPressedReleased();
 private:
 	static std::unordered_map<const char*, std::vector<int>> inputMap;
 	static std::unordered_map<int, bool> keys;
+	static std::unordered_map<int, bool> keysJustPressed;
+	static std::unordered_map<int, bool> keysJustReleased;
 };

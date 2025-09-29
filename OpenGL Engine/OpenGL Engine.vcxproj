@@ -33,6 +33,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsCircleShape.cpp" />
     <ClCompile Include="PhysicsCollisionShape.cpp" />
+    <ClCompile Include="PhysicsLineShape.cpp" />
     <ClCompile Include="PhysicsRectangleShape.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect2.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsCircleShape.h" />
     <ClInclude Include="PhysicsCollisionShape.h" />
+    <ClInclude Include="PhysicsLineShape.h" />
     <ClInclude Include="PhysicsRectangleShape.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect2.h" />

@@ -27,6 +27,7 @@ void Game::Idle(float deltaTime)
         gameObject->Process(deltaTime);
     }
 
+    Input::ResetPressedReleased();
     glutPostRedisplay();
 }
 
@@ -77,6 +78,7 @@ void Game::InitInput()
     Input::AddInputAction("move_right", -GLUT_KEY_RIGHT);
     Input::AddInputAction("jump", ' ');
     Input::AddInputAction("reset", 'r');
+    Input::AddInputAction("debug", 'p');
 }
 
 void Game::SetMainMenuScene()

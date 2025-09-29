@@ -14,7 +14,12 @@ void Player::Start()
 
 void Player::Process(float deltaTime)
 {
-	//GetGameObject()->GetTransform()->Rotate(deltaTime);
+	if (Input::GetActionPressed("debug"))
+	{
+		std::cout << "batongaaa\n";
+		velocity.y = 1000;
+		SetState(State::JUMPING);
+	}
 }
 
 void Player::PhysicsProcess(float deltaTime)
