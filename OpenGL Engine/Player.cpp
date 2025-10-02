@@ -4,9 +4,14 @@
 #include "Input.h"
 #include "Sprite.h"
 #include <cassert>
+#include "Game.h"
+#include "PhysicsRectangleShape.h"
+
+Player* Player::Instance = nullptr;
 
 void Player::Start()
 {
+	Instance = this;
 	collision = GetGameObject()->GetComponent<Collision>();
 	transform = GetGameObject()->GetTransform();
 	sprite = GetGameObject()->GetComponent<Sprite>();
@@ -14,11 +19,26 @@ void Player::Start()
 
 void Player::Process(float deltaTime)
 {
-	if (Input::GetActionPressed("debug"))
+	if (Input::GetActionPressed("platform") and trampolinesLeft > 0)
 	{
-		std::cout << "batongaaa\n";
-		velocity.y = 1000;
-		SetState(State::JUMPING);
+		trampolinesLeft--;
+		std::shared_ptr<GameObject> ground = Game::Instance->scene->AddObject();
+		std::shared_ptr<Transform> transform = ground->GetTransform();
+		transform->SetPosition(GetGameObject()->GetTransform()->GetPosition() - Vector2(0, 50.0));
+		//transform->SetScale();
+		std::shared_ptr<Collision> collisionComponent = Physics::CreateCollision();
+		std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
+		spriteComponent->SetTiled(true);
+		spriteComponent->SetTileSize(Vector2(40, 40));
+		ground->AddComponent(collisionComponent);
+		ground->AddComponent(spriteComponent);
+
+		std::shared_ptr<PhysicsRectangleShape> collisionShape = std::make_shared<PhysicsRectangleShape>();
+		collisionComponent->SetShape(std::static_pointer_cast<PhysicsCollisionShape>(collisionShape));
+
+		std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/brickTile.png");
+		collisionShape->SetSize(texture->GetSize());
+		ground->Start();
 	}
 }
 

@@ -26,6 +26,7 @@ public:
 	void SetTiled(bool newTiled);
 	void SetTileSize(Vector2 newTileSize);
 	void SetTileOffset(Vector2 newTileOffset);
+	void SetVisible(bool visible);
 
 	// get
 	std::shared_ptr<Texture> GetTexture() const;
@@ -37,6 +38,7 @@ public:
 	bool GetTiled() const;
 	Vector2 GetTileSize() const;
 	Vector2 GetTileOffset() const;
+	bool GetVisible() const;
 
 	// other
 	std::shared_ptr<Texture> LoadAndSetTexture(const char* path);
@@ -48,6 +50,7 @@ private:
 	bool flipHorizontal;
 	bool flipVertical;
 	bool tiled;
+	bool visible;
 	Vector2 tileSize;
 	Vector2 tileOffset;
 };

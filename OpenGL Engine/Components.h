@@ -6,3 +6,4 @@
 #include "GameCamera.h"
 #include "Button.h"
 #include "Text.h"
+#include "TrampolineComponent.h"

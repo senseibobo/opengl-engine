@@ -1,11 +1,13 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "PhysicsRectangleShape.h"
+#include "CheckpointComponent.h"
 
 Scene* Scene::currentScene;
 
 void Scene::Start()
 {
+	AddQueuedObjects();
 	for (auto& gameObject : GetGameObjects())
 	{
 		gameObject->Start();
@@ -15,7 +17,7 @@ void Scene::Start()
 std::shared_ptr<GameObject> Scene::AddObject()
 {
 	std::shared_ptr<GameObject> gameObject = std::make_shared<GameObject>();
-	gameObjects.push_back(gameObject);
+	gameObjectsToBeAdded.push_back(gameObject);
 	return gameObject;
 }
 
@@ -41,7 +43,7 @@ void Scene::AddPlayer(Vector2 position)
 	cameraComponent->UpdateView();
 }
 
-void Scene::AddGround(Vector2 position, Vector2 scale)
+std::shared_ptr<GameObject> Scene::AddGround(Vector2 position, Vector2 scale)
 {
 	scale *= (Vector2(1920, 1080) / Vector2(40, 40));
 	std::shared_ptr<GameObject> ground = AddObject();
@@ -60,6 +62,7 @@ void Scene::AddGround(Vector2 position, Vector2 scale)
 
 	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/brickTile.png");
 	collisionShape->SetSize(texture->GetSize());
+	return ground;
 }
 
 
@@ -75,6 +78,46 @@ std::shared_ptr<Button> Scene::AddButton(Vector2 position, Vector2 size, std::st
 	return buttonComponent;
 }
 
+void Scene::AddCheckpoint(Vector2 position)
+{
+	Vector2 scale;
+	scale.x = 40.0 / 256.0;
+	scale.y = 40.0 / 256.0;
+	std::shared_ptr<GameObject> object = AddObject();
+	std::shared_ptr<Transform> transform = object->GetTransform();
+	transform->SetPosition(position);
+	transform->SetScale(scale);
+	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
+	spriteComponent->SetTiled(false);
+	object->AddComponent(spriteComponent);
+	std::shared_ptr<CheckpointComponent> checkpointComponent = std::make_shared<CheckpointComponent>();
+	object->AddComponent(checkpointComponent);
+
+
+	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/checkpoint.png");
+
+}
+
+void Scene::AddTrampoline(Vector2 position)
+{
+	Vector2 scale;
+	scale.x = 40.0 / 256.0;
+	scale.y = 40.0 / 256.0;
+	std::shared_ptr<GameObject> object = AddObject();
+	std::shared_ptr<Transform> transform = object->GetTransform();
+	transform->SetPosition(position);
+	transform->SetScale(scale);
+	std::shared_ptr<Sprite> spriteComponent = std::make_shared<Sprite>();
+	spriteComponent->SetTiled(false);
+	object->AddComponent(spriteComponent);
+	std::shared_ptr<TrampolineComponent> checkpointComponent = std::make_shared<TrampolineComponent>();
+	object->AddComponent(checkpointComponent);
+
+
+	std::shared_ptr<Texture> texture = spriteComponent->LoadAndSetTexture("textures/jump_icon.png");
+
+}
+
 void Scene::DestroyObject(GameObject* gameObject)
 {
 	std::cout << "Destroying object!!\n";
@@ -88,6 +131,15 @@ void Scene::DestroyObject(GameObject* gameObject)
 			break;
 		}
 	}
+}
+
+void Scene::AddQueuedObjects()
+{
+	for (std::shared_ptr<GameObject> object : gameObjectsToBeAdded)
+	{
+		gameObjects.push_back(object);
+	}
+	gameObjectsToBeAdded.clear();
 }
 
 void Scene::Destroy()

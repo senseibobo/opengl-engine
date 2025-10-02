@@ -22,6 +22,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CheckpointComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionData.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TrampolineComponent.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="UIManager.cpp" />
@@ -51,6 +53,7 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CheckpointComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionData.h" />
     <ClInclude Include="Component.h" />
@@ -73,6 +76,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TrampolineComponent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIComponent.h" />
     <ClInclude Include="UIManager.h" />

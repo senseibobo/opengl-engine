@@ -7,6 +7,7 @@ class Sprite;
 class Player : public Component
 {
 public:
+	static Player* Instance;
 
 	enum State {
 		JUMPING,
@@ -27,6 +28,7 @@ public:
 		baseHorizontalJump = 0.7;
 		baseVerticalJump = 0.05;
 		facing = 1;
+		trampolinesLeft = 3;
 	}
 
 
@@ -60,6 +62,7 @@ public:
 private:
 	State state;
 	int facing;
+	int trampolinesLeft;
 	float movementSpeed;
 	float jumpHeight;
 	float jumpChargeAmount;

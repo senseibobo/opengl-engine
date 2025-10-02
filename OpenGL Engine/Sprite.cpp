@@ -41,6 +41,11 @@ void Sprite::SetTileOffset(Vector2 newTileOffset)
 	this->tileOffset = newTileOffset;
 }
 
+void Sprite::SetVisible(bool visible)
+{
+	this->visible = visible;
+}
+
 std::shared_ptr<Texture> Sprite::GetTexture() const
 {
 	return this->texture;
@@ -91,6 +96,11 @@ Vector2 Sprite::GetTileOffset() const
 	return this->tileOffset;
 }
 
+bool Sprite::GetVisible() const
+{
+	return this->visible;
+}
+
 std::shared_ptr<Texture> Sprite::LoadAndSetTexture(const char* path)
 {
 	std::shared_ptr<Texture> texture = Texture::LoadFromFile(path);
@@ -100,6 +110,7 @@ std::shared_ptr<Texture> Sprite::LoadAndSetTexture(const char* path)
 
 void Sprite::Draw() const
 {
+	if (!visible) return;
 	if (!texture) return;
 	Transform* transform = GetGameObject()->GetTransform().get();
 	Vector2 size = texture->GetSize();

@@ -1,5 +1,8 @@
 #include "Game.h"
 #include "GameObject.h"
+#include <fstream>
+
+Game* Game::Instance = nullptr;
 
 // Start method
 void Game::Start()
@@ -21,6 +24,8 @@ void Game::Idle(float deltaTime)
         pendingSceneChange = nullptr;
         return;
     }
+
+    scene->AddQueuedObjects();
 
     for (std::shared_ptr<GameObject> gameObject : scene->GetGameObjects())
     {
@@ -79,6 +84,7 @@ void Game::InitInput()
     Input::AddInputAction("jump", ' ');
     Input::AddInputAction("reset", 'r');
     Input::AddInputAction("debug", 'p');
+    Input::AddInputAction("platform", 'b');
 }
 
 void Game::SetMainMenuScene()
@@ -101,12 +107,48 @@ void Game::SetMainMenuScene()
     titleComponent->SetText(std::string("Leaping Goat"));
     buttonComponent->GetGameObject()->AddComponent(playTextComponent);
     buttonComponent->GetGameObject()->AddComponent(titleComponent);
+
+
+    std::shared_ptr<Button> loadButtonComponent = scene->AddButton(Vector2(400, 400), Vector2(100, 30), "Load", [this]() {
+        pendingSceneChange = [this]() {
+            if (!this) {
+                std::cerr << "Error: 'this' is invalid (nullptr) during scene change" << std::endl;
+            }
+            SetGameScene();
+            LoadFile();
+            };
+        });
+    std::shared_ptr<Text> loadTextComponent = std::make_shared<Text>();
+    loadTextComponent->SetAnchors(0.5, 0.5, 0.2, 0.2);
+    loadTextComponent->SetText(std::string("Load"));
+    loadButtonComponent->GetGameObject()->AddComponent(loadTextComponent);
+    loadButtonComponent->SetAnchors(0.5, 0.5, 0.2, 0.2);
+
     std::shared_ptr<GameObject> camera = scene->AddObject();
     std::shared_ptr<Camera> cameraComponent = std::make_shared<Camera>();
     camera->AddComponent(cameraComponent);
     camera->GetTransform()->SetPosition(Vector2(400, 300));
     scene->Start();
 }
+
+
+void Game::LoadFile()
+{
+    Vector2 pos;
+    std::ifstream file("savegame.txt");
+    if (file.is_open())
+    {
+        file >> pos.x >> pos.y;
+        file.close();
+        std::cout << "Checkpoint loaded at: " << pos.x << ", " << pos.y << std::endl;
+        Player::Instance->GetGameObject()->GetTransform()->SetPosition(pos);
+    }
+    else
+    {
+        std::cerr << "Couldn't load checkpoint. Starting from the beginning.\n";
+    }
+}
+
 
 void Game::SetGameScene()
 {
@@ -148,6 +190,9 @@ void Game::SetGameScene()
     scene->AddGround(Vector2(552.0, 4512.0), Vector2(0.02500000037253, 0.04444444552064)); // Ground30
     scene->AddGround(Vector2(680.0, 4720.0), Vector2(0.02500000037253, 0.04444444552064)); // Ground31
     scene->AddGround(Vector2(408.0, 5000.0), Vector2(0.19166666269302, 0.02962962910533)); // Ground32
+    scene->AddCheckpoint(Vector2(472.208, 1131.05));
+    scene->AddCheckpoint(Vector2(112.847, 2587.05));
+    scene->AddTrampoline(Vector2(312.847, 2687.05));
 
     scene->Start();
 }
